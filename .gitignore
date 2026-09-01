@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# eve local dev cache (runtime snapshots, traces, logs, compiled artifacts)
+/.eve/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
