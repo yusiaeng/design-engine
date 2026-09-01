@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# design-engine
 
-## Getting Started
+A personal creative designer that chooses your colour and font tailored to your mood.
 
-First, run the development server:
+Describe a project and a mood, and the Style Advisor agent proposes a colour palette and a typography pairing, checks its own work for accessibility, and revises itself if the palette fails WCAG contrast — all before showing you anything.
+
+**Live:** https://design-engine-eight.vercel.app
+
+## How it works
+
+The agent (built on [eve](https://eve.dev), running on Gemini) has three tools:
+
+- **`makePalette`** — generates a candidate palette (`background`, `text`, plus an open-ended list of accent colours) from your project description and mood.
+- **`contrastCheck`** — computes the real WCAG contrast ratio between two hex colours and reports pass/fail for AA and AAA.
+- **`fontPair`** — suggests a heading/body Google Fonts pairing for the mood, with a short reason.
+
+Every request runs all three: it builds a palette, checks the background/text pair for accessibility (revising up to 3 times if it fails), and picks fonts — then presents the whole thing as visual cards (real colour swatches, pass/fail badges, a live font preview) rather than raw text or tool-call output.
+
+## Running locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000/s](http://localhost:3000/s) to use the chat.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You'll need a `.env.local` with:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+GOOGLE_GENERATIVE_AI_API_KEY=your_gemini_api_key
+```
 
-## Learn More
+## Project layout
 
-To learn more about Next.js, take a look at the following resources:
+- `agent/` — the eve agent: `agent.ts` (model config), `instructions.md` (behaviour), `tools/` (the three tools above), `channels/eve.ts` (auth policy).
+- `app/` — the Next.js chat UI, including `app/_components/style-advisor-output.tsx` for the custom palette/contrast/typography cards.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deployed on Vercel, connected to this repo's `main` branch. Requires `GOOGLE_GENERATIVE_AI_API_KEY` set as a Production environment variable in the Vercel project.
