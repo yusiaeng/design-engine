@@ -36,6 +36,11 @@ GOOGLE_GENERATIVE_AI_API_KEY=your_gemini_api_key
 - `agent/` — the eve agent: `agent.ts` (model config), `instructions.md` (behaviour), `tools/` (the three tools above), `channels/eve.ts` (auth policy).
 - `app/` — the Next.js chat UI, including `app/_components/style-advisor-output.tsx` for the custom palette/contrast/typography cards.
 
+## Example prompt
+
+<img width="750" height="1482" alt="image" src="https://github.com/user-attachments/assets/24c7261c-68d6-4d6c-a636-4d2ea62f31e0" />
+
+
 ## Deployment
 
 Deployed on Vercel, connected to this repo's `main` branch. Requires `GOOGLE_GENERATIVE_AI_API_KEY` set as a Production environment variable in the Vercel project.
