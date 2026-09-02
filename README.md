@@ -20,7 +20,6 @@ Every request runs all three: it builds a palette, checks the background/text pa
 
 These scripts cover development, testing, and production checks for both the Next.js interface and the Eve agent.
 
-## NPM Scripts
 
 | Script              | What it does                                                                          | When to use it                              |
 | ------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------- |
