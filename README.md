@@ -16,6 +16,24 @@ The agent (built on [eve](https://eve.dev), running on Gemini) has three tools:
 
 Every request runs all three: it builds a palette, checks the background/text pair for accessibility (revising up to 3 times if it fails), and picks fonts — then presents the whole thing as visual cards (real colour swatches, pass/fail badges, a live font preview) rather than raw text or tool-call output.
 
+## NPM Scripts
+
+These scripts cover development, testing, and production checks for both the Next.js interface and the Eve agent.
+
+## NPM Scripts
+
+| Script              | What it does                                                                          | When to use it                              |
+| ------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------- |
+| `npm run dev`       | Starts the Next.js chat UI and Eve agent together on `:3000`.                         | Normal development                          |
+| `npm run dev:eve`   | Runs the Eve agent as a terminal REPL without the browser UI.                         | Checking agent behaviour directly           |
+| `npm run typecheck` | Runs TypeScript checking across the whole project with `tsc --noEmit`.                | Before committing                           |
+| `npm run lint`      | Runs ESLint using `eslint-config-next`. Reports issues without changing files.        | Before committing                           |
+| `npm run build`     | Creates the production Next.js build.                                                 | Before deploying                            |
+| `npm start`         | Serves the production build created by `npm run build`.                               | Checking the production build locally       |
+| `npm run build:eve` | Compiles the Eve agent, including tools, instructions, and channels, without Next.js. | Quickly checking that agent changes compile |
+| `npm run start:eve` | Starts the compiled Eve agent without the web UI.                                     | Running the agent standalone                |
+
+
 ## Running locally
 
 ```bash
